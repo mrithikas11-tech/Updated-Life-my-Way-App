@@ -7,29 +7,22 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.canigetafiver.lifemyway.web.controller.RegisterController">
-   <children>
-      <Label text="Register">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font></Label>
-      <Label text="Username" />
-      <TextField fx:id="usernameField" promptText="Username" />
-      <Label text="Password" />
-      <PasswordField fx:id="passwordField" promptText="Password" />
-      <Label text="Confirm Password" />
-      <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" />
-      <Label fx:id="errorLabel" text="" wrapText="true" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-         <children>
-            <Button mnemonicParsing="false" text="Cancel" onAction="#onCancel" />
-            <Button mnemonicParsing="false" text="Join" onAction="#onRegister" defaultButton="true" />
-         </children>
-      </HBox>
-   </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
+<VBox alignment="CENTER" spacing="16" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.canigetafiver.lifemyway.web.controller.RegisterController"
+      stylesheets="@../styles.css">
+   <padding><Insets bottom="40" left="40" right="40" top="40"/></padding>
+
+   <Label text="Register" styleClass="title"/>
+   <Label text="Username" styleClass="form-label"/>
+   <TextField fx:id="usernameField" promptText="Username" maxWidth="400"/>
+   <Label text="Password" styleClass="form-label"/>
+   <PasswordField fx:id="passwordField" promptText="Password" maxWidth="400"/>
+   <Label text="Confirm Password" styleClass="form-label"/>
+   <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" maxWidth="400"/>
+   <Label fx:id="errorLabel" text="" wrapText="true" styleClass="error-label"/>
+   <HBox alignment="CENTER" spacing="16">
+      <Button text="Cancel" styleClass="secondary-button" onAction="#onCancel"/>
+      <Button text="Join" styleClass="primary-button" onAction="#onRegister" defaultButton="true"/>
+   </HBox>
 </VBox>

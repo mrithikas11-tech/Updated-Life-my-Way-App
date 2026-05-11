@@ -11,7 +11,8 @@
 <BorderPane styleClass="root, home-root"
             xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.canigetafiver.lifemyway.web.controller.HomeController">
+            fx:controller="com.canigetafiver.lifemyway.web.controller.HomeController"
+           stylesheets="@../styles.css">
     <top>
         <HBox alignment="CENTER_LEFT" spacing="12" styleClass="welcome-banner">
             <padding>

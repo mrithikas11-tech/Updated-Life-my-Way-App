@@ -14,7 +14,8 @@
 <StackPane styleClass="root, login-root"
            xmlns="http://javafx.com/javafx/21"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.canigetafiver.lifemyway.web.controller.LoginController">
+           fx:controller="com.canigetafiver.lifemyway.web.controller.LoginController"
+           stylesheets="@../styles.css">
     <VBox alignment="CENTER" maxWidth="420" spacing="14" styleClass="card">
         <padding>
             <Insets top="32" right="32" bottom="32" left="32"/>

@@ -11,44 +11,45 @@
 
 <StackPane xmlns="http://javafx.com/javafx/21"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.canigetafiver.lifemyway.web.BudgetDashboardController">
+           fx:controller="com.canigetafiver.lifemyway.web.BudgetDashboardController"
+           stylesheets="@styles.css">
 
-    <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent;">
         <content>
             <VBox spacing="16" prefWidth="1280">
                 <padding><Insets top="24" right="32" bottom="24" left="32"/></padding>
 
-                <HBox spacing="12">
-                    <Button text="Back" onAction="#handleBackButton"/>
-                    <Label fx:id="currentBudgetLabel" text="Your Budget"/>
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Button text="Back" styleClass="secondary-button" onAction="#handleBackButton"/>
+                    <Label fx:id="currentBudgetLabel" text="Your Budget" styleClass="title"/>
                 </HBox>
 
-                <VBox spacing="10">
+                <VBox spacing="10" styleClass="card">
                     <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-                    <HBox spacing="16">
-                        <Label text="Total Budget"/>
-                        <Label fx:id="totalBudgetAmount" text="0.00"/>
+                    <HBox spacing="16" alignment="CENTER_LEFT">
+                        <Label text="Total Budget" styleClass="subtitle"/>
+                        <Label fx:id="totalBudgetAmount" text="0.00" styleClass="title"/>
                     </HBox>
                     <ProgressBar fx:id="totalProgressBar" prefWidth="600" progress="0.0"/>
-                    <Label fx:id="totalProgressLabel" text="0.00 allocated of 0.00"/>
+                    <Label fx:id="totalProgressLabel" text="0.00 allocated of 0.00" styleClass="muted-label"/>
                 </VBox>
 
-                <VBox spacing="10">
+                <VBox spacing="10" styleClass="card">
                     <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-                    <Label text="Category Breakdown"/>
+                    <Label text="Category Breakdown" styleClass="subtitle"/>
                     <VBox fx:id="budgetsContainer" spacing="8"/>
                 </VBox>
 
-                <VBox spacing="8">
+                <VBox spacing="8" styleClass="card">
                     <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-                    <Label text="Notifications"/>
-                    <Label fx:id="noAlertsLabel" text="No alerts - you are on track!"/>
+                    <Label text="Notifications" styleClass="subtitle"/>
+                    <Label fx:id="noAlertsLabel" text="No alerts - you are on track!" styleClass="muted-label"/>
                     <VBox fx:id="notificationsContainer" spacing="6"/>
                 </VBox>
 
-                <VBox spacing="8">
+                <VBox spacing="8" styleClass="card">
                     <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-                    <Label text="Expenses"/>
+                    <Label text="Expenses" styleClass="subtitle"/>
                     <VBox fx:id="expensesContainer" spacing="6"/>
                 </VBox>
 

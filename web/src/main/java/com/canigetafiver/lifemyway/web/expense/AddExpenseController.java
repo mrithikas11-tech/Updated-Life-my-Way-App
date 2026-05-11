@@ -1,6 +1,13 @@
 package com.canigetafiver.lifemyway.web.expense;
 
 
+import com.canigetafiver.lifemyway.api.Category;
+import com.canigetafiver.lifemyway.api.Expense;
+import com.canigetafiver.lifemyway.api.ExpenseAccount;
+import com.canigetafiver.lifemyway.api.PaymentMethod;
+import com.canigetafiver.lifemyway.web.nav.NavigationController;
+import com.canigetafiver.lifemyway.web.nav.View;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.function.Consumer;
@@ -16,10 +23,10 @@ import javafx.scene.control.TextField;
 public class AddExpenseController {
     @FXML
     private Button cancelButton;
-    
+
     @FXML
     private Button saveButton;
-   
+
     @FXML
     private ChoiceBox<Category> categoryChoiceBox;
     @FXML
@@ -34,9 +41,13 @@ public class AddExpenseController {
     private DatePicker datePicker;
 
     private Expense newExpense;
+    // Where the new expense should be saved — set by the parent (ExpenseList) before navigating here,
+    // or pulled from NavigationController on save if not set.
+    private ExpenseAccount targetAccount;
+    public void setTargetAccount(ExpenseAccount account) { this.targetAccount = account; }
 
-   
-    
+
+
     //For date picker, we can use the built in JavaFX DatePicker control, which allows users to select a date from a calendar view. We can also add a button that opens a custom date selection dialog if we want to provide more advanced date selection options.
     @FXML
     private void initialize() {
@@ -54,64 +65,61 @@ public class AddExpenseController {
                 amountTextField.setText(oldValue);
             }
         });
-        
+
     }
-        
-   
+
+
     @FXML
     private void saveExpense() throws IOException {
-            
-            try {
-                if (amountTextField.getText().isEmpty() || categoryChoiceBox.getValue() == null || paymentMethodChoiceBox.getValue() == null) {
-                    newExpense = new Expense.ExpenseBuilder(Double.parseDouble(amountTextField.getText()), Category.DINING, PaymentMethod.APPLE_PAY)
-                    .description(descriptionTextArea.getText())
-                    .date(datePicker.getValue())
-                    .vendor(vendorTextField.getText())
-                    .build();
-                }
-                else{
-
-                     newExpense = new Expense.ExpenseBuilder(Double.parseDouble(amountTextField.getText()), categoryChoiceBox.getValue(), paymentMethodChoiceBox.getValue())
-                    .description(descriptionTextArea.getText())
-                    .date(datePicker.getValue())
-                    .vendor(vendorTextField.getText())
-                    .build();
-                }
-            } catch (IllegalArgumentException e) {
-                // Handle the exception (e.g., show an error message to the user)
-                System.out.println("Error creating expense: " + e.getMessage());
-                return; // Exit the method if there was an error
-            }
         if (amountTextField.getText().isEmpty() || categoryChoiceBox.getValue() == null || paymentMethodChoiceBox.getValue() == null) {
-             newExpense = new Expense.ExpenseBuilder(Double.parseDouble(amountTextField.getText()), Category.DINING, PaymentMethod.APPLE_PAY)
-                .description(descriptionTextArea.getText())
-                .date(datePicker.getValue())
-                .vendor(vendorTextField.getText())
-                .build();
+            System.out.println("Amount, category and payment method are required.");
+            return;
         }
-    else{
-
-         newExpense = new Expense.ExpenseBuilder(Double.parseDouble(amountTextField.getText()), categoryChoiceBox.getValue(), paymentMethodChoiceBox.getValue())
+        try {
+            newExpense = new Expense.ExpenseBuilder(
+                    Double.parseDouble(amountTextField.getText()),
+                    categoryChoiceBox.getValue(),
+                    paymentMethodChoiceBox.getValue())
                 .description(descriptionTextArea.getText())
                 .date(datePicker.getValue())
                 .vendor(vendorTextField.getText())
                 .build();
+        } catch (IllegalArgumentException e) {
+            // Handle the exception (e.g., show an error message to the user)
+            System.out.println("Error creating expense: " + e.getMessage());
+            return;
+        }
+
+        // Save into whichever ExpenseAccount the parent gave us; fall back to the
+        // current navigation-scoped account.
+        ExpenseAccount account = targetAccount != null
+            ? targetAccount
+            : NavigationController.getInstance().currentAccount();
+        if (account != null) {
+            account.addExpense(newExpense);
+        }
+
+        System.out.println("New Expense: " + newExpense.getAmount() + ", " + newExpense.getCategory()
+            + ", " + newExpense.getPaymentMethod() + ", " + newExpense.getDescription()
+            + ", " + newExpense.getVendor() + ", " + newExpense.getDate());
+
+        NavigationController.getInstance().navigateTo(View.EXPENSE_LIST);
     }
-    //TODO: Add the new expense to the list of expenses in the primary controller
-        System.out.println("New Expense: " + newExpense.getAmount() + ", " + newExpense.getCategory() + ", " + newExpense.getPaymentMethod() + ", " + newExpense.getDescription() + ", " + newExpense.getVendor() + ", " + newExpense.getDate());
-    //Way to return expense
-        
-    }  
 
     @FXML
     private void cancel() throws IOException {
-        
-    }  
+        NavigationController.getInstance().navigateTo(View.EXPENSE_LIST);
+    }
     @FXML
     private void selectDate() {
         // This method can be used to handle any additional logic when a date is selected, if needed.
     }
-    
+
+    @FXML
+    private void selectCategory() {
+        // Stub referenced by AddExpense.fxml onContextMenuRequested handler.
+    }
+
     @FXML
     private void updateAmount() throws IOException {
           amountTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -121,19 +129,17 @@ public class AddExpenseController {
             }
         });
         amountTextField.setText(amountTextField.getText());
-    
-}
-public Consumer<Expense> getSaveExpenseConsumer() {
-    return new Consumer<Expense>() {
-        @Override
-        public void accept(Expense expense) {
-            // Handle the new expense (e.g., add it to a list, update the UI, etc.)
-            System.out.println("New Expense: " + expense.getAmount() + ", " + expense.getCategory() + ", " + expense.getPaymentMethod() + ", " + expense.getDescription() + ", " + expense.getVendor() + ", " + expense.getDate());
-        }
-    };
-}
 
-   
+    }
+    public Consumer<Expense> getSaveExpenseConsumer() {
+        return new Consumer<Expense>() {
+            @Override
+            public void accept(Expense expense) {
+                // Handle the new expense (e.g., add it to a list, update the UI, etc.)
+                System.out.println("New Expense: " + expense.getAmount() + ", " + expense.getCategory() + ", " + expense.getPaymentMethod() + ", " + expense.getDescription() + ", " + expense.getVendor() + ", " + expense.getDate());
+            }
+        };
+    }
 
 
 }

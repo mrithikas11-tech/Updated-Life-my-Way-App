@@ -1,6 +1,14 @@
 package com.canigetafiver.lifemyway.web.expense;
 
+import com.canigetafiver.lifemyway.api.Category;
+import com.canigetafiver.lifemyway.api.Expense;
+import com.canigetafiver.lifemyway.api.ExpenseAccount;
+import com.canigetafiver.lifemyway.api.PaymentMethod;
+import com.canigetafiver.lifemyway.web.nav.NavigationController;
+import com.canigetafiver.lifemyway.web.nav.View;
+
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -22,54 +30,72 @@ public class EditExpenseController {
     TextArea descriptionTextArea;
     @FXML
     TextField vendorTextField;
-    //TODO get expense from list
-    private Expense originalExpense; // This will hold the original expense being edited
-    private Expense expenseToEdit = new Expense(); //test
-//empty constructor for now, will need to be able to take in an existing expense to edit
+
+    private Expense originalExpense;
+    private Expense expenseToEdit;
+    private ExpenseAccount targetAccount;
+
+    public void setExpenseToEdit(Expense e) {
+        this.originalExpense = e;
+        this.expenseToEdit = e;
+    }
+    public void setTargetAccount(ExpenseAccount account) { this.targetAccount = account; }
+
     @FXML
     private void initialize() {
-        // Set initial date to current day
-        datePicker.setValue(expenseToEdit.getDate());
-        //updateLabelWithDate(LocalDate.now());
-        // Populate category choice box with enum values
+        // Populate category and payment dropdowns first
         categoryChoiceBox.getItems().setAll(Category.values());
-        // Populate payment method choice box with enum values
         paymentMethodChoiceBox.getItems().setAll(PaymentMethod.values());
 
-        amountTextField.setText(String.valueOf(expenseToEdit.getAmount()));
-        // Add listener to amount text field to ensure only valid numbers are entered
-        amountTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*(\\.\\d*)?")) {
-                // Remove invalid characters
-                amountTextField.setText(oldValue);
-            }
-        });
+        // If parent didn't push an expense to edit yet, pull one from the NavigationController's
+        // pending slot (set by ExpenseListController.onEdit), otherwise fall back to a blank.
+        if (expenseToEdit == null) {
+            expenseToEdit = NavigationController.getInstance().consumePendingEditTarget();
+        }
+        if (expenseToEdit == null) {
+            expenseToEdit = new Expense();
+        }
+        originalExpense = expenseToEdit;
 
-        vendorTextField.setText(expenseToEdit.getVendor());
-        descriptionTextArea.setText(expenseToEdit.getDescription());
-    }
+        // Pull the active ExpenseAccount from the navigation singleton if not pushed in.
+        if (targetAccount == null) {
+            targetAccount = NavigationController.getInstance().currentAccount();
+        }
 
-    //TODO fix
-    @FXML
-    private void cancelEdit()  {
-        
-    }
-    @FXML
-    private void resetFields() {
-        datePicker.setValue(expenseToEdit.getDate());
+        datePicker.setValue(expenseToEdit.getDate() != null ? expenseToEdit.getDate() : LocalDate.now());
         categoryChoiceBox.setValue(expenseToEdit.getCategory());
         paymentMethodChoiceBox.setValue(expenseToEdit.getPaymentMethod());
         amountTextField.setText(String.valueOf(expenseToEdit.getAmount()));
         vendorTextField.setText(expenseToEdit.getVendor());
         descriptionTextArea.setText(expenseToEdit.getDescription());
+
+        amountTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*(\\.\\d*)?")) {
+                amountTextField.setText(oldValue);
+            }
+        });
     }
-    //TODO: Add the ability to delete the expense, which would remove it from the list of expenses in the primary controller and navigate back to the primary view.
+
+    @FXML
+    private void cancelEdit() {
+        NavigationController.getInstance().navigateTo(View.EXPENSE_LIST);
+    }
+
+    @FXML
+    private void resetFields() {
+        if (originalExpense == null) return;
+        datePicker.setValue(originalExpense.getDate());
+        categoryChoiceBox.setValue(originalExpense.getCategory());
+        paymentMethodChoiceBox.setValue(originalExpense.getPaymentMethod());
+        amountTextField.setText(String.valueOf(originalExpense.getAmount()));
+        vendorTextField.setText(originalExpense.getVendor());
+        descriptionTextArea.setText(originalExpense.getDescription());
+    }
+
     @FXML
     private void saveEdit() {
-        // Here you would typically gather the updated information from the UI components
-        // and update the existing expense object, then navigate back to the primary view.
-        // For example:
-        expenseToEdit = new Expense.ExpenseBuilder()
+        try {
+            Expense updated = new Expense.ExpenseBuilder()
                 .amount(Double.parseDouble(amountTextField.getText()))
                 .category(categoryChoiceBox.getValue())
                 .paymentMethod(paymentMethodChoiceBox.getValue())
@@ -77,9 +103,15 @@ public class EditExpenseController {
                 .vendor(vendorTextField.getText())
                 .date(datePicker.getValue())
                 .build();
-        // After saving the changes, navigate back to the primary view
-       
+
+            // Swap original with updated in the account (delete + add).
+            if (targetAccount != null && originalExpense != null) {
+                targetAccount.getExpenses().remove(originalExpense);
+                targetAccount.addExpense(updated);
+            }
+            NavigationController.getInstance().navigateTo(View.EXPENSE_LIST);
+        } catch (IllegalArgumentException ex) {
+            System.out.println("Error updating expense: " + ex.getMessage());
+        }
     }
-
-
 }

@@ -43,5 +43,6 @@
     </GridPane>
 
     <Button fx:id="saveButton" text="Save" onAction="#handleSave" />
+    <Button text="← Back to Home" onAction="#handleBack" />
     <Label fx:id="statusLabel" />
 </VBox>

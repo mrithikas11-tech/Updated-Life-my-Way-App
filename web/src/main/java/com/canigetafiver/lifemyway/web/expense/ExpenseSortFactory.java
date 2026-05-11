@@ -1,5 +1,6 @@
 package com.canigetafiver.lifemyway.web.expense;
 
+import com.canigetafiver.lifemyway.api.Expense;
 import java.util.Comparator;
 
 enum SortType {

@@ -2,14 +2,18 @@ package com.canigetafiver.lifemyway.api;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 
 public class PersistenceStressTest {
     public static void main(String[] args) throws Exception {
         Path dataFile = Files.createTempDirectory("life-my-way-stress-test").resolve("stress-users.json");
-        Category category = new Category("Stress", "Stress test expenses");
+        Category category = Category.OTHER;
         ExpenseAccount account = new ExpenseAccount();
         for (int i = 0; i < 500; i++) {
-            account.addExpense(new Expense("Expense " + i, i + 0.99, "2026-05-07", category));
+            account.addExpense(new Expense.ExpenseBuilder(i + 0.99, category, PaymentMethod.CASH)
+                .description("Expense " + i)
+                .date(LocalDate.parse("2026-05-07"))
+                .build());
         }
         UserDataBase db = new UserDataBase();
         db.addUser("stress", new User("Stress User", "stress@example.com", "555-0500", "USD"), account);

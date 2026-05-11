@@ -40,8 +40,8 @@
                     onAction="#onViewExpenses"
                     maxWidth="320"
                     styleClass="primary-button"/>
-            <Button text="Settings (coming soon)"
-                    disable="true"
+            <Button text="Settings"
+                    onAction="#onSettings"
                     maxWidth="320"
                     styleClass="secondary-button"/>
             <Button text="Log Out"

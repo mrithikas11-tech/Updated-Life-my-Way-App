@@ -1,15 +1,3 @@
 package com.canigetafiver.lifemyway.web.expense;
-
-public enum Category {
-    ENTERTAINMENT,
-    DINING,
-    FOOD,
-    GROCERY,
-    HEALTH,
-    RENT,
-    TRANSPORTATION,
-    TRAVEL,
-    UTILITIES,
-    OTHER
-
-}
+// Consolidated into com.canigetafiver.lifemyway.api.Category.
+// Empty package declaration left here for follow-up cleanup PR.

@@ -80,7 +80,15 @@ public class BudgetCustomizationController {
     @FXML
     public void setAmount(double amount) {
         budget = amount;
-        amountLabel.setText("$" + String.format("%.2f", budget));
+        updateRemainingLabel();
+    }
+
+    /** Refresh amountLabel to show the budget left after current allocations. */
+    private void updateRemainingLabel() {
+        if (amountLabel == null) return;
+        double remaining = budget - this.amount;
+        amountLabel.setText("$" + String.format("%.2f", remaining)
+            + "   (of $" + String.format("%.2f", budget) + " total)");
     }
 
     @FXML
@@ -97,6 +105,7 @@ public class BudgetCustomizationController {
             budgetManager.addBudget(newAmount, period, Category.ENTERTAINMENT);
             entertainmentPreviousAmount = newAmount;
             totalCategoryCounter++;
+            updateRemainingLabel();
             successLabel1.setText("Success! Entertainment: $" + String.format("%.2f", newAmount));
             showSuccess(successLabel1);
         } catch (NumberFormatException e) {
@@ -118,6 +127,7 @@ public class BudgetCustomizationController {
             budgetManager.addBudget(newAmount, period, Category.FOOD);
             foodPreviousAmount = newAmount;
             totalCategoryCounter++;
+            updateRemainingLabel();
             successLabel2.setText("Success! Food: $" + String.format("%.2f", newAmount));
             showSuccess(successLabel2);
         } catch (NumberFormatException e) {
@@ -139,6 +149,7 @@ public class BudgetCustomizationController {
             budgetManager.addBudget(newAmount, period, Category.HEALTH);
             healthPreviousAmount = newAmount;
             totalCategoryCounter++;
+            updateRemainingLabel();
             successLabel3.setText("Success! Health: $" + String.format("%.2f", newAmount));
             showSuccess(successLabel3);
         } catch (NumberFormatException e) {
@@ -160,6 +171,7 @@ public class BudgetCustomizationController {
             budgetManager.addBudget(newAmount, period, Category.RENT);
             rentPreviousAmount = newAmount;
             totalCategoryCounter++;
+            updateRemainingLabel();
             successLabel4.setText("Success! Rent: $" + String.format("%.2f", newAmount));
             showSuccess(successLabel4);
         } catch (NumberFormatException e) {
@@ -181,6 +193,7 @@ public class BudgetCustomizationController {
             budgetManager.addBudget(newAmount, period, Category.TRANSPORTATION);
             transportationPreviousAmount = newAmount;
             totalCategoryCounter++;
+            updateRemainingLabel();
             successLabel5.setText("Success! Transportation: $" + String.format("%.2f", newAmount));
             showSuccess(successLabel5);
         } catch (NumberFormatException e) {
@@ -202,6 +215,7 @@ public class BudgetCustomizationController {
             budgetManager.addBudget(newAmount, period, Category.UTILITIES);
             utilitiesPreviousAmount = newAmount;
             totalCategoryCounter++;
+            updateRemainingLabel();
             successLabel6.setText("Success! Utilities: $" + String.format("%.2f", newAmount));
             showSuccess(successLabel6);
         } catch (NumberFormatException e) {
@@ -262,6 +276,7 @@ public class BudgetCustomizationController {
                     successLbl.setText("Added $" + String.format("%.2f", catAmount));
                     successLbl.setVisible(true);
                     successLbl.setManaged(true);
+                    updateRemainingLabel();
                 }
             } catch (NumberFormatException ex) {
                 showError("Please enter a valid number.");
@@ -311,6 +326,7 @@ public class BudgetCustomizationController {
             NewCategoriesContainer.getChildren().add(lastPanel);
             newCategoryCounter++;
             totalCategoryCounter++;
+            updateRemainingLabel();
         }
     }
 

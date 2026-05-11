@@ -1,7 +1,12 @@
 package com.canigetafiver.lifemyway.web.controller;
+import com.canigetafiver.lifemyway.api.ExpenseAccount;
+import com.canigetafiver.lifemyway.api.UserDataBase;
 import com.canigetafiver.lifemyway.web.auth.AuthenticationService;
+import com.canigetafiver.lifemyway.web.auth.AuthSession;
 import com.canigetafiver.lifemyway.web.nav.NavigationController;
 import com.canigetafiver.lifemyway.web.nav.View;
+
+import java.util.Optional;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -31,6 +36,14 @@ public class LoginController {
         AuthenticationService auth=NavigationController.getInstance().authService();
         AuthenticationService.Result result=auth.login(usernameField.getText(),passwordField.getText());
         if(result.success()){
+            // Wire the active user's ExpenseAccount into the navigation singleton so
+            // ExpenseListController / AddExpenseController / EditExpenseController can read + write it.
+            Optional<AuthSession> session = auth.currentSession();
+            UserDataBase db = NavigationController.getInstance().database();
+            if (session.isPresent() && db != null) {
+                ExpenseAccount account = db.findUserAccount(session.get().username());
+                NavigationController.getInstance().setCurrentAccount(account);
+            }
             NavigationController.getInstance().navigateTo(View.HOME);
         }else{
             statusLabel.getStyleClass().removeAll("success-label");

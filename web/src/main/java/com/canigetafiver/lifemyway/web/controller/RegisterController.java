@@ -26,8 +26,10 @@ public class RegisterController {
 
     @FXML private void onRegister(){
         AuthenticationService auth=NavigationController.getInstance().authService();
+        // Use username as displayName if no separate displayName field is present in the FXML.
+        String displayName = displayNameField != null ? displayNameField.getText() : usernameField.getText();
         AuthenticationService.Result result=auth.register(
-            usernameField.getText(), passwordField.getText(), confirmPasswordField.getText(), displayNameField.getText());
+            usernameField.getText(), passwordField.getText(), confirmPasswordField.getText(), displayName);
         if(result.success()){
             NavigationController.getInstance().setFlashMessage("Account created - please log in.");
             NavigationController.getInstance().navigateTo(View.LOGIN);

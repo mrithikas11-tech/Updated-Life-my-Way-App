@@ -16,15 +16,16 @@
             <Font name="System Bold" size="18.0" />
          </font></Label>
       <Label text="Username" />
-      <TextField promptText="Username" />
+      <TextField fx:id="usernameField" promptText="Username" />
       <Label text="Password" />
-      <PasswordField promptText="Password" />
+      <PasswordField fx:id="passwordField" promptText="Password" />
       <Label text="Confirm Password" />
-      <PasswordField promptText="Confirm Password" />
+      <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" />
+      <Label fx:id="errorLabel" text="" wrapText="true" />
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" text="Cancel" />
-            <Button mnemonicParsing="false" text="Join" />
+            <Button mnemonicParsing="false" text="Cancel" onAction="#onCancel" />
+            <Button mnemonicParsing="false" text="Join" onAction="#onRegister" defaultButton="true" />
          </children>
       </HBox>
    </children>

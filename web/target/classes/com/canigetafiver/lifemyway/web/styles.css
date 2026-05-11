@@ -1,0 +1,191 @@
+/*
+* Life My Way global stylesheet
+*/
+
+.root {
+    -fx-bg-primary:     #f5f7fb;
+    -fx-bg-card:        #ffffff;
+    -fx-bg-banner:      #1f3a8a;
+    -fx-text-primary:   #0f172a;
+    -fx-text-muted:     #64748b;
+    -fx-text-on-dark:   #ffffff;
+    -fx-accent:         #2563eb;
+    -fx-accent-hover:   #1d4ed8;
+    -fx-success:        #16a34a;
+    -fx-danger:         #dc2626;
+    -fx-border:         #d1d5db;
+    -fx-radius:         8;
+
+    -fx-font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: -fx-bg-primary;
+    -fx-text-fill: -fx-text-primary;
+}
+
+/* typography  */
+
+.title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: -fx-text-muted;
+}
+
+.brand {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-on-dark;
+}
+
+.welcome-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-on-dark;
+}
+
+.muted-label {
+    -fx-text-fill: -fx-text-muted;
+}
+
+.hint-label {
+    -fx-text-fill: -fx-text-muted;
+    -fx-font-size: 11px;
+    -fx-font-style: italic;
+}
+
+.form-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.error-label {
+    -fx-text-fill: -fx-danger;
+    -fx-font-weight: bold;
+}
+
+.success-label {
+    -fx-text-fill: -fx-success;
+    -fx-font-weight: bold;
+}
+
+/* containers  */
+
+.card {
+    -fx-background-color: -fx-bg-card;
+    -fx-background-radius: -fx-radius;
+    -fx-border-color: -fx-border;
+    -fx-border-radius: -fx-radius;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.08), 12, 0, 0, 4);
+}
+
+.welcome-banner {
+    -fx-background-color: -fx-bg-banner;
+}
+
+.footer {
+    -fx-background-color: derive(-fx-bg-primary, -3%);
+    -fx-border-color: -fx-border;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* form controls */
+
+.text-field, .password-field {
+    -fx-background-color: -fx-bg-card;
+    -fx-border-color: -fx-border;
+    -fx-border-radius: -fx-radius;
+    -fx-background-radius: -fx-radius;
+    -fx-padding: 8 10;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: -fx-accent;
+    -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.25), 6, 0, 0, 0);
+}
+
+/* buttons */
+
+.primary-button {
+    -fx-background-color: -fx-accent;
+    -fx-text-fill: -fx-text-on-dark;
+    -fx-font-weight: bold;
+    -fx-padding: 10 18;
+    -fx-background-radius: -fx-radius;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: -fx-accent-hover;
+}
+
+.secondary-button {
+    -fx-background-color: -fx-bg-card;
+    -fx-text-fill: -fx-text-primary;
+    -fx-border-color: -fx-border;
+    -fx-border-radius: -fx-radius;
+    -fx-background-radius: -fx-radius;
+    -fx-padding: 10 18;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: derive(-fx-bg-card, -3%);
+}
+
+.ghost-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-accent;
+    -fx-border-color: transparent;
+    -fx-padding: 10 18;
+    -fx-cursor: hand;
+}
+
+.ghost-button:hover {
+    -fx-text-fill: -fx-accent-hover;
+    -fx-underline: true;
+}
+
+/* table */
+
+.table-view {
+    -fx-background-color: -fx-bg-card;
+    -fx-border-color: -fx-border;
+    -fx-border-radius: -fx-radius;
+    -fx-background-radius: -fx-radius;
+}
+
+.table-view .column-header {
+    -fx-background-color: derive(-fx-bg-primary, -2%);
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-weight: bold;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: derive(-fx-bg-card, -1%);
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: derive(-fx-accent, 60%);
+    -fx-text-fill: -fx-text-primary;
+}
+
+/* link*/
+
+.link {
+    -fx-text-fill: -fx-accent;
+    -fx-border-color: transparent;
+    -fx-underline: false;
+}
+
+.link:visited {
+    -fx-text-fill: -fx-accent;
+}
+
+.link:hover {
+    -fx-underline: true;
+}

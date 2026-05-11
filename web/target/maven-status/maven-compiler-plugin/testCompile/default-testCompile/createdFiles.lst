@@ -1,0 +1,7 @@
+com/canigetafiver/lifemyway/web/nav/NavigationControllerTest.class
+com/canigetafiver/lifemyway/web/auth/InMemoryUserStoreTest.class
+com/canigetafiver/lifemyway/web/ui/CssLoadingTest.class
+com/canigetafiver/lifemyway/web/auth/AuthenticationServiceTest$Logout.class
+com/canigetafiver/lifemyway/web/auth/AuthenticationServiceTest$Login.class
+com/canigetafiver/lifemyway/web/auth/AuthenticationServiceTest.class
+com/canigetafiver/lifemyway/web/auth/AuthenticationServiceTest$Register.class

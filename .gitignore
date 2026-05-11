@@ -16,3 +16,7 @@ target/
 *.log
 hs_err_pid*.log
 replay_pid*.log
+
+# Runtime data files
+user-data.json
+user-data.json.tmp

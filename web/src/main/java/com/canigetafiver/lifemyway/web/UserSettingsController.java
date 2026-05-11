@@ -4,6 +4,8 @@ import com.canigetafiver.lifemyway.api.ExpenseAccount;
 import com.canigetafiver.lifemyway.api.PersistenceManager;
 import com.canigetafiver.lifemyway.api.User;
 import com.canigetafiver.lifemyway.api.UserDataBase;
+import com.canigetafiver.lifemyway.web.nav.NavigationController;
+import com.canigetafiver.lifemyway.web.nav.View;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -90,5 +92,10 @@ public class UserSettingsController {
         phoneField.setText(currentUser.getNumber());
         currencyComboBox.setValue(currentUser.getPreferredCurrency());
         statusLabel.setText("");
+    }
+
+    @FXML
+    private void handleBack() {
+        NavigationController.getInstance().navigateTo(View.HOME);
     }
 }

@@ -1,11 +1,15 @@
 package com.canigetafiver.lifemyway.service;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class BudgetManagerTest {
 
@@ -16,7 +20,7 @@ class BudgetManagerTest {
         manager = new BudgetManager();
     }
 
-    // ── addBudget ────────────────────────────────────────────────────────────
+    // addBudget
 
     @Test
     void addBudget_increasesListSize() {
@@ -41,7 +45,7 @@ class BudgetManagerTest {
         assertEquals(3, manager.getBudgetList().size());
     }
 
-    // ── deleteBudget ─────────────────────────────────────────────────────────
+    //  deleteBudget
 
     @Test
     void deleteBudget_removesMatchingCategory() {
@@ -67,7 +71,7 @@ class BudgetManagerTest {
         assertTrue(manager.getBudgetList().isEmpty());
     }
 
-    // ── getGeneralBudget ─────────────────────────────────────────────────────
+    //  getGeneralBudget 
 
     @Test
     void getGeneralBudget_returnsGeneralBudget() {
@@ -85,7 +89,7 @@ class BudgetManagerTest {
         assertNull(manager.getGeneralBudget());
     }
 
-    // ── getCategoryBudgets ───────────────────────────────────────────────────
+    //  getCategoryBudgets 
 
     @Test
     void getCategoryBudgets_excludesGeneral() {
@@ -103,7 +107,7 @@ class BudgetManagerTest {
         assertTrue(manager.getCategoryBudgets().isEmpty());
     }
 
-    // ── getTotalAllocated ────────────────────────────────────────────────────
+    //  getTotalAllocated 
 
     @Test
     void getTotalAllocated_sumsNonGeneralAmounts() {
@@ -118,7 +122,7 @@ class BudgetManagerTest {
         assertEquals(0, manager.getTotalAllocated(), 0.001);
     }
 
-    // ── editBudgetAmount ─────────────────────────────────────────────────────
+    //  editBudgetAmount
 
     @Test
     void editBudgetAmount_updatesCorrectly() {

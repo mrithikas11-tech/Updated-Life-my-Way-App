@@ -35,7 +35,7 @@ public class BudgetDashboardController {
     private double totalBudget;
     private Period period;
 
-    // ── data setters (called from BudgetCustomizationController) ─────────────
+    // sets budget data
 
     public void setCurrentBudget(Period period) {
         this.period = period;
@@ -55,12 +55,8 @@ public class BudgetDashboardController {
         this.budgetManager = budgetManager;
     }
 
-    // ── card builders ─────────────────────────────────────────────────────────
+    // creates cards for each of the elements in the dashbaord (budget, expense, notifications)
 
-    /**
-     * Category breakdown: one row per non-GENERAL budget showing name, cap,
-     * and a small progress bar. Rows over cap are highlighted red.
-     */
     @FXML
     public void createBudgetCards() {
         budgetsContainer.getChildren().clear();
@@ -130,10 +126,7 @@ public class BudgetDashboardController {
         return row;
     }
 
-    /**
-     * Expense list: placeholder until expense system integration.
-     * Shows "No expenses recorded yet" empty state.
-     */
+    
     @FXML
     public void createExpenseCards() {
         expensesContainer.getChildren().clear();
@@ -142,10 +135,7 @@ public class BudgetDashboardController {
         expensesContainer.getChildren().add(empty);
     }
 
-    /**
-     * Notifications: alerts when a category is >= 80% full or exceeded.
-     * Hidden with "No alerts" when nothing is triggered.
-     */
+   
     @FXML
     public void createNotificationCards() {
         notificationsContainer.getChildren().clear();
@@ -204,7 +194,7 @@ public class BudgetDashboardController {
         stage.show();
     }
 
-    // ── utils ─────────────────────────────────────────────────────────────────
+    // number formatting
 
     private String formatCategory(Category c) {
         String raw = c.name();

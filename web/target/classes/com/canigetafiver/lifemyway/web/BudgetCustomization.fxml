@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.Region?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.canigetafiver.lifemyway.web.BudgetCustomizationController"
+           alignment="TOP_CENTER"
+           stylesheets="@styles.css">
+
+<HBox spacing="20" prefWidth="1200">
+    <VBox spacing="6"
+         fx:id="mainCategoriesContainer"
+        prefWidth="1450" maxHeight="720"
+        alignment="TOP_CENTER"
+        styleClass="card">
+        <padding><Insets top="20" right="20" bottom="10" left="20"/></padding>
+
+         <Label text="Breakdown your Budget:" styleClass="title"/>
+         <Label text="Your current total:" styleClass="subtitle"/>
+         <Label text="amount label"
+                 fx:id="amountLabel"
+                 styleClass="subtitle"/>
+
+           <HBox alignment="CENTER_LEFT" spacing="8" fx:id="EntertainmentContainer">
+              <Button text="Entertainment" styleClass="primary-button" prefWidth="160" prefHeight="36" onAction="#handleDeleteButton"/>
+               <TextField fx:id="EntertainmentBudgetField"
+                   promptText="Enter Entertainment Budget:"
+                   visible="true"
+                   managed="true"
+                    onAction="#handleEntertainmentCategory"
+                  />
+              <Label text="success!" fx:id="successLabel1" styleClass="success-label" visible="false" managed="false"/>
+                 
+        </HBox>
+
+          <HBox alignment="CENTER_LEFT" spacing="8" fx:id="FoodContainer">
+                <Button text="Food" styleClass="primary-button" prefWidth="160" prefHeight="36" onAction="#handleDeleteButton"/>
+               <TextField fx:id="FoodBudgetField"
+                   promptText="Enter Food Budget:"
+                   visible="true"
+                   managed="true"
+                onAction="#handleFoodCategory"
+                   />
+                <Label text="success!" fx:id="successLabel2" styleClass="success-label" visible="false" managed="false"/>
+        </HBox>
+
+           <HBox alignment="CENTER_LEFT" spacing="8" fx:id="HealthContainer">
+                <Button text="Health" styleClass="primary-button" prefWidth="160" prefHeight="36" onAction="#handleDeleteButton"/>
+               <TextField fx:id="HealthBudgetField"
+                   promptText="Enter Health Budget:"
+                   visible="true"
+                   managed="true"
+                onAction="#handleHealthCategory"
+                 />
+                  <Label text="success!" fx:id="successLabel3" styleClass="success-label" visible="false" managed="false"/>
+        </HBox>
+       
+          <HBox alignment="CENTER_LEFT" spacing="8" fx:id="RentContainer">
+                <Button text="Rent" styleClass="primary-button" prefWidth="160" prefHeight="36" onAction="#handleDeleteButton"/>
+               <TextField fx:id="RentBudgetField"
+                   promptText="Enter Rent Budget:"
+                   visible="true"
+                   managed="true"
+                onAction="#handleRentCategory"
+                   />
+                  <Label text="success!" fx:id="successLabel4" styleClass="success-label" visible="false" managed="false"/>
+        </HBox>
+
+           <HBox alignment="CENTER_LEFT" spacing="8" fx:id="TransportationContainer">
+                <Button text="Transportation" styleClass="primary-button" prefWidth="160" prefHeight="36" onAction="#handleDeleteButton"/>
+               <TextField fx:id="TransportationBudgetField"
+                   promptText="Enter Transportation Budget:"
+                   visible="true"
+                   managed="true"
+                onAction="#handleTransportationCategory"
+                   />
+               <Label text="success!" fx:id="successLabel5" styleClass="success-label" visible="false" managed="false"/>
+        </HBox>
+
+         <HBox alignment="CENTER_LEFT" spacing="8" fx:id="UtilitiesContainer">
+                <Button text="Utilities" styleClass="primary-button" prefWidth="160" prefHeight="36" onAction="#handleDeleteButton"/>
+               <TextField fx:id="UtilitiesBudgetField"
+                   promptText="Enter Utilities Budget:"
+                   visible="true"
+                   managed="true"
+                   onAction="#handleUtilitiesCategory"
+                   />
+                  <Label text="success!" fx:id="successLabel6" styleClass="success-label" visible="false" managed="false"/>
+        </HBox>
+
+      <VBox fx:id="NewCategoriesContainer">
+           <HBox alignment="CENTER_LEFT" spacing="10">
+              <Button text="New Category" fx:id="newCategory" styleClass="primary-button" prefWidth="160" prefHeight="36"  visible="false"
+               managed="false" onAction="#handleDeleteButton"/>
+            <Label text="success!" fx:id="successLabel7" styleClass="success-label" visible="false" managed="false"/>
+          </HBox>
+       </VBox>
+
+         <HBox alignment="CENTER_LEFT" spacing="8" fx:id="OtherContainer">
+                <Button text="Create Other Category" fx:id="createNewCategory" styleClass="secondary-button" prefWidth="160" prefHeight="36"/>
+               <TextField fx:id="OtherBudgetField"
+                   promptText="Enter Category Name"
+                   visible="true"
+                   managed="true"
+                  onAction="#handleOtherCategory"
+                   />
+        </HBox>
+
+</VBox>
+
+<HBox>
+         <Region HBox.hgrow="ALWAYS"/>
+              <VBox Alignment="CENTER" spacing="10"
+                  fx:id="previewContainer"
+                  VBox.vgrow="ALWAYS"
+                 prefWidth="1000" prefHeight="500"
+                 styleClass="card">
+                <HBox alignment="CENTER" spacing="10" fx:id="NextContainer" HBox.hgrow="ALWAYS">
+                                      <Button text="← Back" styleClass="secondary-button" prefWidth="160" prefHeight="36" onAction="#handleBackButton"/>
+               <Button text="Next" styleClass="primary-button" prefWidth="160" prefHeight="36" onAction="#handleNextButton"/>
+               </HBox>
+                 <HBox alignment="CENTER" spacing="10" fx:id="NextContainer" HBox.hgrow="ALWAYS">
+                   <Button text="Undo Delete" styleClass="primary-button" prefWidth="160" prefHeight="36" onAction="#handleUndoButton"/>
+               </HBox>
+
+              </VBox>
+     
+        </HBox>
+   
+
+</HBox>
+
+</StackPane>
+    

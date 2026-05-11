@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="732.0" prefWidth="1255.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.canigetafiver.lifemyway.web.expense.AddExpenseController">
+   <children>
+      <Label text="Add Expense">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <AnchorPane prefHeight="44.0" prefWidth="1240.0">
+         <children>
+            <Label layoutX="450.0" text="Category" />
+            <ChoiceBox fx:id="categoryChoiceBox" layoutX="545.0" layoutY="20.0" onContextMenuRequested="#selectCategory" prefWidth="150.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="100.0" prefWidth="1240.0">
+         <children>
+            <Label layoutX="450.0" text="Date" />
+            <DatePicker fx:id="datePicker" editable="true" layoutX="545.0" layoutY="20.0" />
+            <Label layoutX="597.0" />
+            <Label layoutX="545.0" text="Month/Day/Year" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="105.0" prefWidth="1215.0">
+         <children>
+            <ChoiceBox fx:id="paymentMethodChoiceBox" layoutX="545.0" layoutY="20.0" prefWidth="150.0" />
+            <Label layoutX="450.0" text="Payment Method" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="55.0" prefWidth="1215.0">
+         <children>
+            <TextField fx:id="amountTextField" alignment="CENTER" layoutX="546.0" layoutY="20.0" onAction="#updateAmount" promptText="\$00.00" />
+            <Label layoutX="450.0" text="Amount" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="51.0" prefWidth="1215.0">
+         <children>
+            <Label layoutX="450.0" text="Vendor" />
+            <TextField fx:id="vendorTextField" alignment="CENTER" layoutX="546.0" layoutY="20.0" promptText="Vendor" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="153.0" prefWidth="1215.0">
+         <children>
+            <Label layoutX="450.0" text="Description" />
+            <TextArea fx:id="descriptionTextArea" layoutX="545.0" layoutY="20.0" prefHeight="100.0" prefWidth="500.0" promptText="Expense Description" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="49.0" prefWidth="1215.0" />
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+         <children>
+            <Button fx:id="cancelButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+            <Button fx:id="save" mnemonicParsing="false" onAction="#saveExpense" text="Save" />
+         </children>
+         <padding>
+            <Insets left="545.0" />
+         </padding>
+      </HBox>
+      <AnchorPane prefHeight="62.0" prefWidth="1215.0" />
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

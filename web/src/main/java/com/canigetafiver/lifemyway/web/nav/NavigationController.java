@@ -3,7 +3,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
+import com.canigetafiver.lifemyway.api.Expense;
+import com.canigetafiver.lifemyway.api.ExpenseAccount;
+import com.canigetafiver.lifemyway.api.UserDataBase;
 import com.canigetafiver.lifemyway.web.auth.AuthenticationService;
+import com.canigetafiver.lifemyway.web.auth.PersistedUserStore;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +23,9 @@ public final class NavigationController {
     private static final NavigationController INSTANCE= new NavigationController(); //singleton initialization
     private Stage primaryStage;
     private AuthenticationService authService;
+    private PersistedUserStore userStore;
+    private ExpenseAccount currentAccount;
+    private Expense pendingEditTarget;
     private String pendingFlashMessage;
     private NavigationController(){} //prevents any external instantiation
 
@@ -39,6 +46,23 @@ public final class NavigationController {
         return authService;
     }
 
+    /** Optional wiring used when the app boots with a persistent UserStore. */
+    public void setUserStore(PersistedUserStore store){ this.userStore = store; }
+    public PersistedUserStore userStore(){ return userStore; }
+    public UserDataBase database(){ return userStore == null ? null : userStore.database(); }
+
+    /** The ExpenseAccount belonging to the currently-signed-in user. */
+    public void setCurrentAccount(ExpenseAccount account){ this.currentAccount = account; }
+    public ExpenseAccount currentAccount(){ return currentAccount; }
+
+    /** Used by ExpenseListController.onEdit to hand an Expense to EditExpenseController. */
+    public void setPendingEditTarget(Expense expense){ this.pendingEditTarget = expense; }
+    public Expense consumePendingEditTarget(){
+        Expense e = pendingEditTarget;
+        pendingEditTarget = null;
+        return e;
+    }
+
     /**
      * used by RegisterController to display status msg
      */
@@ -52,7 +76,7 @@ public final class NavigationController {
     public void navigateTo(View view){
         ensureInitialized();
         Objects.requireNonNull(view,"view cannot be null");
-        
+
         URL fxmlUrl=getClass().getResource(view.fxmlPath());
         if(fxmlUrl==null){
             showMissingViewAlert(view);
@@ -62,7 +86,7 @@ public final class NavigationController {
             Parent root=loader.load();
             Scene scene=new Scene(root);
             attachStylesheet(scene);
-            primaryStage.setTitle(view.fxmlPath());
+            primaryStage.setTitle(view.title());
             primaryStage.setScene(scene);
             primaryStage.show();
         }catch(IOException e){

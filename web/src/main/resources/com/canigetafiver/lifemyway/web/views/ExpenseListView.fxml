@@ -22,7 +22,7 @@
             <Region HBox.hgrow="ALWAYS"/>
             <Label text="Your Expenses" styleClass="brand"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Region prefWidth="60"/>
+            <Button text="+ Add Expense" onAction="#onAdd" styleClass="primary-button"/>
         </HBox>
     </top>
     <center>
@@ -38,4 +38,13 @@
             </columnResizePolicy>
         </TableView>
     </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="12" styleClass="footer">
+            <padding>
+                <Insets top="14" right="32" bottom="14" left="32"/>
+            </padding>
+            <Button text="Delete" onAction="#onDelete" styleClass="ghost-button"/>
+            <Button text="Edit" onAction="#onEdit" styleClass="secondary-button"/>
+        </HBox>
+    </bottom>
 </BorderPane>

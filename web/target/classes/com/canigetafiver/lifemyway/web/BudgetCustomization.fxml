@@ -23,10 +23,12 @@
         <padding><Insets top="20" right="20" bottom="10" left="20"/></padding>
 
          <Label text="Breakdown your Budget:" styleClass="title"/>
-         <Label text="Your current total:" styleClass="subtitle"/>
+         <Label text="Remaining budget:" styleClass="subtitle"/>
          <Label text="amount label"
                  fx:id="amountLabel"
                  styleClass="subtitle"/>
+         <Label text="Tip: Type an amount in each box, then press Enter to apply it."
+                 styleClass="hint-label"/>
 
            <HBox alignment="CENTER_LEFT" spacing="8" fx:id="EntertainmentContainer">
               <Button text="Entertainment" styleClass="primary-button" prefWidth="160" prefHeight="36" onAction="#handleDeleteButton"/>

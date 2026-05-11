@@ -1,6 +1,8 @@
 package com.canigetafiver.lifemyway.api;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,27 +20,31 @@ public final class MockDataFactory {
     }
 
     public static List<Category> createCategories() {
-        List<Category> categories = new ArrayList<>();
-        categories.add(new Category("Food", "Meals, groceries, and snacks"));
-        categories.add(new Category("Transportation", "Gas, rideshare, and public transit"));
-        categories.add(new Category("School", "Books, supplies, and project costs"));
-        return categories;
+        return new ArrayList<>(Arrays.asList(Category.values()));
     }
 
     public static List<Expense> createExpenses() {
-        List<Category> categories = createCategories();
         List<Expense> expenses = new ArrayList<>();
-        expenses.add(new Expense("Groceries", 54.20, "2026-05-01", categories.get(0)));
-        expenses.add(new Expense("Coffee", 5.75, "2026-05-02", categories.get(0)));
-        expenses.add(new Expense("Bus pass", 25.00, "2026-05-03", categories.get(1)));
-        expenses.add(new Expense("Notebook", 4.99, "2026-05-04", categories.get(2)));
-        expenses.add(new Expense("Lunch", 12.50, "2026-05-05", categories.get(0)));
-        expenses.add(new Expense("Gas", 38.40, "2026-05-06", categories.get(1)));
-        expenses.add(new Expense("Textbook", 79.99, "2026-05-07", categories.get(2)));
-        expenses.add(new Expense("Dinner", 18.30, "2026-05-08", categories.get(0)));
-        expenses.add(new Expense("Ride share", 14.10, "2026-05-09", categories.get(1)));
-        expenses.add(new Expense("Printer paper", 8.25, "2026-05-10", categories.get(2)));
+        expenses.add(buildExpense(54.20, Category.GROCERY,        PaymentMethod.DEBIT_CARD,  "Groceries",    "Safeway",      "2026-05-01"));
+        expenses.add(buildExpense( 5.75, Category.FOOD,           PaymentMethod.CASH,        "Coffee",       "Starbucks",    "2026-05-02"));
+        expenses.add(buildExpense(25.00, Category.TRANSPORTATION, PaymentMethod.CREDIT_CARD, "Bus pass",     "VTA",          "2026-05-03"));
+        expenses.add(buildExpense( 4.99, Category.ENTERTAINMENT,  PaymentMethod.CASH,        "Notebook",     "Target",       "2026-05-04"));
+        expenses.add(buildExpense(12.50, Category.DINING,         PaymentMethod.CREDIT_CARD, "Lunch",        "Chipotle",     "2026-05-05"));
+        expenses.add(buildExpense(38.40, Category.TRANSPORTATION, PaymentMethod.DEBIT_CARD,  "Gas",          "Shell",        "2026-05-06"));
+        expenses.add(buildExpense(79.99, Category.ENTERTAINMENT,  PaymentMethod.CREDIT_CARD, "Textbook",     "Amazon",       "2026-05-07"));
+        expenses.add(buildExpense(18.30, Category.DINING,         PaymentMethod.CREDIT_CARD, "Dinner",       "Olive Garden", "2026-05-08"));
+        expenses.add(buildExpense(14.10, Category.TRANSPORTATION, PaymentMethod.APPLE_PAY,   "Ride share",   "Lyft",         "2026-05-09"));
+        expenses.add(buildExpense( 8.25, Category.ENTERTAINMENT,  PaymentMethod.DEBIT_CARD,  "Printer paper","Office Depot", "2026-05-10"));
         return expenses;
+    }
+
+    private static Expense buildExpense(double amount, Category category, PaymentMethod pm,
+                                        String description, String vendor, String isoDate) {
+        return new Expense.ExpenseBuilder(amount, category, pm)
+            .description(description)
+            .vendor(vendor)
+            .date(LocalDate.parse(isoDate))
+            .build();
     }
 
     public static UserDataBase createUserDataBase() {

@@ -1,0 +1,18 @@
+# Build output
+target/
+*.class
+
+# macOS
+.DS_Store
+
+# IDE / editor
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Logs
+*.log
+hs_err_pid*.log
+replay_pid*.log

@@ -1,30 +1,18 @@
 package com.canigetafiver.lifemyway.api;
 
-/**
- * Organizes expenses under a reusable label.
- */
-public class Category {
-    private String name;
-    private String description;
+public enum Category {
+    ENTERTAINMENT,
+    DINING,
+    FOOD,
+    GROCERY,
+    HEALTH,
+    RENT,
+    TRANSPORTATION,
+    UTILITIES,
+    OTHER;
 
-    public Category(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public String displayName() {
+        String s = name().toLowerCase().replace('_', ' ');
+        return Character.toUpperCase(s.charAt(0)) + s.substring(1);
     }
 }

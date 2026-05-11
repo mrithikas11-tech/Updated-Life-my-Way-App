@@ -83,6 +83,10 @@ public class HomeController {
         }
     }
 
+    @FXML private void onSettings(){
+        NavigationController.getInstance().navigateTo(View.SETTINGS);
+    }
+
     @FXML private void onLogout() throws IOException {
         try {
             NavigationController.getInstance().authService().logout();

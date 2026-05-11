@@ -1,11 +1,13 @@
 package com.canigetafiver.lifemyway.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class BudgetTest {
 
-    // ── construction ─────────────────────────────────────────────────────────
+    //  construction 
 
     @Test
     void constructor_setsAmountAndPeriodAndCategory() {
@@ -22,7 +24,7 @@ class BudgetTest {
         assertFalse(b.isExceeded());
     }
 
-    // ── calculateRemaining ────────────────────────────────────────────────────
+    //  calculateRemaining 
 
     @Test
     void calculateRemaining_reducesRemainingCorrectly() {
@@ -53,7 +55,7 @@ class BudgetTest {
         assertTrue(b.isExceeded());
     }
 
-    // ── resetBudget ───────────────────────────────────────────────────────────
+    // resetBudget 
 
     @Test
     void resetBudget_clearsAllValues() {
@@ -64,7 +66,7 @@ class BudgetTest {
         assertEquals(0, b.getRemaining(), 0.001);
     }
 
-    // ── setters ───────────────────────────────────────────────────────────────
+    //  setters
 
     @Test
     void setAmount_updatesAmount() {

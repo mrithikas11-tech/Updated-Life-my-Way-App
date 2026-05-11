@@ -273,7 +273,7 @@ public class BudgetCustomizationController {
                     previousCustomAmount[0] = catAmount;
                     budgetManager.deleteBudget(Category.OTHER);
                     budgetManager.addBudget(catAmount, period, Category.OTHER);
-                    successLbl.setText("Added $" + String.format("%.2f", catAmount));
+                    successLbl.setText("Success! Added $" + String.format("%.2f", catAmount) + " to " + deleteBtn.getText());
                     successLbl.setVisible(true);
                     successLbl.setManaged(true);
                     updateRemainingLabel();
